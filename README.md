@@ -1,7 +1,7 @@
 # Android-vk-client
 
-# vk:androidsdk
-# glide
-# rxpermissions
-# rxkotlin
-recyclerview
+Vk:androidsdk,
+Glide,
+RxPermissions,
+RxKotlin,
+Recyclerview
