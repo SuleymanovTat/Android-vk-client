@@ -4,3 +4,4 @@
 # glide
 # rxpermissions
 # rxkotlin
+recyclerview
