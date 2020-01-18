@@ -20,7 +20,10 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import ru.suleymanovtat.androidclient.R
+import ru.suleymanovtat.androidclient.adapter.GroupsAdapter
+import ru.suleymanovtat.androidclient.model.VKGroup
 import ru.suleymanovtat.androidclient.model.VKUser
+import ru.suleymanovtat.androidclient.requests.VKGroupsCommand
 import ru.suleymanovtat.androidclient.requests.VKUsersCommand
 import ru.suleymanovtat.androidclient.requests.VKWallPostCommand
 import ru.suleymanovtat.androidclient.utils.PathUtils
@@ -38,6 +41,7 @@ class HomeFragment : Fragment() {
         view.tvPostText.setOnClickListener { sharePost() }
         view.ivPhoto.setOnClickListener { requestPhoto() }
         view.tvPostTextImage.setOnClickListener { sharePost(uri) }
+        requestGroups()
         return view
     }
 
@@ -58,6 +62,26 @@ class HomeFragment : Fragment() {
 
             override fun fail(error: VKApiExecutionException) {
                 Log.e(TAG, error.toString())
+            }
+        })
+    }
+
+    private fun requestGroups() {
+        VK.execute(VKGroupsCommand(), object : VKApiCallback<List<VKGroup>>,
+            GroupsAdapter.OnClickGroupListener {
+            override fun success(result: List<VKGroup>) {
+                if (!result.isEmpty()) {
+                    val groupsAdapter = GroupsAdapter(result, this)
+                    groups.adapter = groupsAdapter
+                }
+            }
+
+            override fun fail(error: VKApiExecutionException) {
+                Log.e(TAG, error.toString())
+            }
+
+            override fun onGroupClick(group: VKGroup) {
+                Log.e(TAG, group.name)
             }
         })
     }
@@ -126,3 +150,4 @@ class HomeFragment : Fragment() {
         private const val TAG = "tag"
     }
 }
+
