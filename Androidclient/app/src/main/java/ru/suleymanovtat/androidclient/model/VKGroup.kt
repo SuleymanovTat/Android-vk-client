@@ -1,15 +1,15 @@
 package ru.suleymanovtat.androidclient.model
 
-import android.os.Parcel
 import org.json.JSONObject
 
 data class VKGroup(
     val id: Int = 0,
     val name: String = "",
     val screenName: String = "",
-    val photo200: String = ""
+    val photo200: String = "",
+    var isSelect: Boolean = false
 ) {
-    companion object  {
+    companion object {
         fun parse(json: JSONObject) = VKGroup(
             id = json.optInt("id", 0),
             name = json.optString("name", ""),

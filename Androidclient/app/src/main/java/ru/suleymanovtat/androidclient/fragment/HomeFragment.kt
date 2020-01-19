@@ -32,6 +32,7 @@ class HomeFragment : Fragment() {
 
     val disposables = CompositeDisposable()
     var uri: Uri? = null
+    var groupsAdapter: GroupsAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +42,29 @@ class HomeFragment : Fragment() {
         view.tvPostText.setOnClickListener { sharePost() }
         view.ivPhoto.setOnClickListener { requestPhoto() }
         view.tvPostTextImage.setOnClickListener { sharePost(uri) }
+        view.btnPostGroup.setOnClickListener {
+            if (groupsAdapter?.getIds() != null) {
+                val ids = groupsAdapter?.getIds()!!
+                for (id in ids) {
+                    val photos = ArrayList<Uri>()
+                    uri?.let {
+                        photos.add(it)
+                    }
+                    VK.execute(
+                        VKWallPostCommand(editMessageField.text.toString(), photos, ownerId = -id),
+                        object : VKApiCallback<Int> {
+                            override fun success(result: Int) {
+                                Toast.makeText(activity, R.string.wall_ok, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                            override fun fail(error: VKApiExecutionException) {
+                                Log.e(TAG, "VKApiExecutionException " + error.toString())
+                            }
+                        })
+                }
+            }
+        }
         requestGroups()
         return view
     }
@@ -71,7 +95,7 @@ class HomeFragment : Fragment() {
             GroupsAdapter.OnClickGroupListener {
             override fun success(result: List<VKGroup>) {
                 if (!result.isEmpty()) {
-                    val groupsAdapter = GroupsAdapter(result, this)
+                    groupsAdapter = GroupsAdapter(result, this)
                     groups.adapter = groupsAdapter
                 }
             }

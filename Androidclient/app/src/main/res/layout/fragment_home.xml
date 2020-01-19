@@ -82,11 +82,20 @@
         android:id="@+id/groups"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_group"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnPostGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPostTextImage" />
+        app:layout_constraintTop_toBottomOf="@id/tvPostTextImage"
+        tools:listitem="@layout/item_group" />
 
+
+    <Button
+        android:id="@+id/btnPostGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post image and text group"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

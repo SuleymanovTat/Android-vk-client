@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 class VKWallPostCommand(private val message: String? = null,
                         private val photos: List<Uri> = listOf(),
-                        private val ownerId: Int = 0,
+                        private var ownerId: Int = 0,
                         private val friendsOnly: Boolean = false,
                         private val fromGroup: Boolean = false): ApiCommand<Int>() {
 
@@ -30,7 +30,6 @@ class VKWallPostCommand(private val message: String? = null,
         message?.let {
             callBuilder.args("message", it)
         }
-
         if (ownerId != 0) {
             callBuilder.args("owner_id", ownerId)
         }

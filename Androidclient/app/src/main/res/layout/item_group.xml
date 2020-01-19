@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_margin="8dp"
         android:id="@+id/imAvatar"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -20,9 +20,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toStartOf="@+id/enable"
         app:layout_constraintStart_toEndOf="@+id/imAvatar"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="text" />
+
+    <TextView
+        android:id="@+id/enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Выкл"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
